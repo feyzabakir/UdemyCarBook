@@ -11,21 +11,22 @@ using UdemyCarBook.Domain.Entities;
 
 namespace UdemyCarBook.Application.Features.Mediator.Handlers.LocationHandlers
 {
-    public class GetServiceQueryHandler : IRequestHandler<GetLocationQuery, List<GetLocationQueryResult>>
+    public class GetLocationByIdQueryHandler: IRequestHandler<GetLocationByIdQuery, GetLocationByIdQueryResult>
     {
         private readonly IRepository<Location> _repository;
-        public GetServiceQueryHandler(IRepository<Location> repository)
+        public GetLocationByIdQueryHandler(IRepository<Location> repository)
         {
             _repository = repository;
         }
-        public async Task<List<GetLocationQueryResult>> Handle(GetLocationQuery request, CancellationToken cancellationToken)
+
+        public async Task<GetLocationByIdQueryResult> Handle(GetLocationByIdQuery request, CancellationToken cancellationToken)
         {
-            var values = await _repository.GetAllAsync();
-            return values.Select(x => new GetLocationQueryResult
+            var values = await _repository.GetByIdAsync(request.Id);
+            return new GetLocationByIdQueryResult
             {
-                Name = x.Name,
-                LocationID = x.LocationID
-            }).ToList();
+                LocationID = values.LocationID,
+                Name = values.Name
+            };
         }
     }
 }

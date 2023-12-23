@@ -10,18 +10,19 @@ using UdemyCarBook.Domain.Entities;
 
 namespace UdemyCarBook.Application.Features.Mediator.Handlers.LocationHandlers
 {
-    public class UpdatePricingCommandHandler : IRequestHandler<UpdateLocationCommand>
+    public class CreateLocationCommandHandler : IRequestHandler<CreateLocationCommand>
     {
         private readonly IRepository<Location> _repository;
-        public UpdatePricingCommandHandler(IRepository<Location> repository)
+        public CreateLocationCommandHandler(IRepository<Location> repository)
         {
             _repository = repository;
         }
-        public async Task Handle(UpdateLocationCommand request, CancellationToken cancellationToken)
+        public async Task Handle(CreateLocationCommand request, CancellationToken cancellationToken)
         {
-            var values = await _repository.GetByIdAsync(request.LocationID);
-            values.Name = request.Name;
-            await _repository.UpdateAsync(values);
+            await _repository.CreateAsync(new Location
+            {
+                Name = request.Name
+            });
         }
     }
 }
