@@ -2,7 +2,7 @@
 
 namespace UdemyCarBook.WebUI.ViewComponents.UILayoutViewComponents
 {
-    public class _FooterUILayoutComponentPartial: ViewComponent
+    public class _FooterUILayoutComponentPartial:ViewComponent
     {
         public IViewComponentResult Invoke()
         {
