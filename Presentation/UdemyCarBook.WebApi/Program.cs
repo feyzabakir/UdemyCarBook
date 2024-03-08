@@ -6,10 +6,12 @@ using UdemyCarBook.Application.Features.CQRS.Handlers.CategoryHandlers;
 using UdemyCarBook.Application.Features.CQRS.Handlers.ContactHandlers;
 using UdemyCarBook.Application.Features.CQRS.Results.CarResults;
 using UdemyCarBook.Application.Interfaces;
+using UdemyCarBook.Application.Interfaces.BlogInterface;
 using UdemyCarBook.Application.Interfaces.CarInterfaces;
 using UdemyCarBook.Application.Services;
 using UdemyCarBook.Persistence.Context;
 using UdemyCarBook.Persistence.Repositories;
+using UdemyCarBook.Persistence.Repositories.BlogRepositories;
 using UdemyCarBook.Persistence.Repositories.CarRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +21,8 @@ builder.Services.AddScoped<CarBookContext>();
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(ICarRepository), typeof(CarRepository));
+builder.Services.AddScoped(typeof(IBlogRepository), typeof(BlogRepository));
+
 
 builder.Services.AddScoped<GetAboutQueryHandler>();
 builder.Services.AddScoped<GetAboutByIdQueryHandler>();
@@ -57,6 +61,8 @@ builder.Services.AddScoped<GetContactByIdQueryHandler>();
 builder.Services.AddScoped<CreateContactCommandHandler>();
 builder.Services.AddScoped<UpdateContactCommandHandler>();
 builder.Services.AddScoped<RemoveContactCommandHandler>();
+
+
 
 builder.Services.AddApplicationService(builder.Configuration);
 
